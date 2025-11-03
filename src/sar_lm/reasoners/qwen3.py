@@ -20,6 +20,8 @@ from tqdm import tqdm
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+from sar_lm.prompts.templates import REASONING_INSTRUCTION_PROMPT
+
 
 class Qwen3Reasoner:
     """Qwen3 30B reasoning backend for symbolic audio reasoning tasks."""
@@ -203,20 +205,21 @@ class Qwen3Reasoner:
         return "\n".join(lines)
 
     def _build_llm_input(self, prompt: str, question: str, choices: List[str]) -> str:
-        """Construct the full instruction for Qwen."""
+        """Construct the reasoning instruction for Qwen using the shared template."""
         choices_str = "\n".join(choices)
         choices_examples = ", ".join(f'"{c}"' for c in choices)
-        instruction = "\n".join([
-            "You are a reasoning engine for audio understanding.",
-            "Analyze the provided Audio Context and select the correct choice.",
-            f"- Choose from: {choices_examples}",
-            "Your response must be EXACTLY one of the options and nothing else."
-        ])
+
+        # use the shared reasoning prompt template
+        instructions = REASONING_INSTRUCTION_PROMPT.format(choices_examples=choices_examples)
+
         return (
-            f"Audio Analysis Task\n\n"
-            f"Question: {question}\nChoices:\n{choices_str}\n\n"
+            "Audio Analysis Task\n\n"
+            f"Question: {question}\n"
+            f"Available choices (respond with EXACT text):\n"
+            f"{choices_str}\n\n"
             f"Audio Context:\n{prompt}\n\n"
-            f"Instructions:\n{instruction}\n\nAnswer:"
+            f"Instructions:\n{instructions}\n\n"
+            "Answer:"
         )
 
     def _call_qwen_from_flat(self, flat_prompt: str, question: str, choices: List[str]) -> Tuple[str, str]:

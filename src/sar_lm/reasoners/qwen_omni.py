@@ -21,6 +21,8 @@ from tqdm import tqdm
 from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor
 from qwen_omni_utils import process_mm_info
 
+from sar_lm.prompts.templates import REASONING_INSTRUCTION_PROMPT
+
 
 class QwenOmniReasoner:
     """Qwen2.5-Omni (7B) symbolic reasoning engine."""
@@ -117,20 +119,21 @@ class QwenOmniReasoner:
 
     @staticmethod
     def _build_llm_input(prompt: str, question: str, choices: List[str]) -> str:
-        """Assemble structured instruction prompt for Qwen-Omni."""
+        """Builds the reasoning input for Qwen-Omni using the shared instruction template."""
         choices_str = "\n".join(choices)
-        choices_inline = ", ".join(f'"{c}"' for c in choices)
-        instr = "\n".join([
-            "You are a state-of-the-art reasoning model for audio understanding.",
-            "Analyze the provided Audio Context to answer the Question accurately.",
-            f"- Choose from: {choices_inline}",
-            "Your answer must be exactly one of the options, no explanation."
-        ])
+        choices_examples = ", ".join(f'"{c}"' for c in choices)
+
+        # Use the unified reasoning prompt
+        instructions = REASONING_INSTRUCTION_PROMPT.format(choices_examples=choices_examples)
+
         return (
-            f"Audio Analysis Task\n\n"
-            f"Question: {question}\nChoices:\n{choices_str}\n\n"
+            "Audio Analysis Task\n\n"
+            f"Question: {question}\n"
+            f"Available choices (respond with EXACT text):\n"
+            f"{choices_str}\n\n"
             f"Audio Context:\n{prompt}\n\n"
-            f"Instructions:\n{instr}\n\nAnswer:"
+            f"Instructions:\n{instructions}\n\n"
+            "Answer:"
         )
 
     def _call_qwen_from_flat(self, flat_prompt: str, question: str, choices: List[str]) -> str:

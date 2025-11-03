@@ -22,6 +22,8 @@ from typing import Any, Dict, List, Optional
 from tqdm import tqdm
 import google.generativeai as genai
 
+from sar_lm.prompts.templates import REASONING_INSTRUCTION_PROMPT
+
 
 class GeminiReasoner:
     """Unified Gemini 2.5 Pro reasoner with multiple prompting modes."""
@@ -353,20 +355,18 @@ class GeminiReasoner:
         return "\n".join(lines)
 
     @staticmethod
-    def _build_llm_input(prompt: str, question: str, choices: List[str], header: str = "Audio Analysis Task") -> str:
-        """Build the final instruction to send to the LLM."""
-        choices_str = "\n".join(f"{c}" for c in choices)
+    def _build_llm_input(
+        prompt: str,
+        question: str,
+        choices: List[str],
+        header: str = "Audio Analysis Task",
+    ) -> str:
+        """Build the final LLM instruction string using the shared prompt template."""
+        choices_str = "\n".join(choices)
         choices_examples = ", ".join(f'"{c}"' for c in choices)
-        instruction_lines = [
-            "You are a state-of-the-art logical reasoning engine for audio analysis.",
-            "Your task is to analyze the provided Audio Context to answer the Question.",
-            "First, reason through the evidence step-by-step to determine the single most accurate choice.",
-            "Then, provide your final answer in the required format.",
-            f"- Choose from: {choices_examples}",
-            "CRITICAL: Your entire response MUST ONLY be the exact, verbatim text of the correct choice. Do not add any other words or explanations.",
-            "Output exactly the correct choice and nothing else.",
-        ]
-        instructions = "\n".join(instruction_lines)
+
+        instructions = REASONING_INSTRUCTION_PROMPT.format(choices_examples=choices_examples)
+
         return (
             f"{header}\n\n"
             f"Question: {question}\n"

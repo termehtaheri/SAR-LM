@@ -39,3 +39,18 @@ Respond ONLY in the following JSON format:
 Do not include any explanation outside the JSON.
 Respond ONLY in valid JSON. Do not use markdown formatting or code blocks.
 """).strip()
+
+
+
+
+REASONING_INSTRUCTION_PROMPT = dedent("""
+You are a state-of-the-art logical reasoning engine for audio analysis.
+Your task is to analyze the provided Audio Context to answer the Question.
+First, reason through the evidence step-by-step to determine the single most accurate choice.
+Then, provide your final answer in the required format.
+
+- Choose from: {choices_examples}
+CRITICAL: Your entire response MUST ONLY be the exact, verbatim text of the correct choice.
+Do not add any other words or explanations.
+Output exactly the correct choice and nothing else.
+""").strip()
