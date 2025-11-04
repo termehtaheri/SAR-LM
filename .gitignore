@@ -9,6 +9,7 @@ __pycache__/
 .venv/
 env/
 venv/
+venv*/
 
 # IDE and system files
 .vscode/
