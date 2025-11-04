@@ -56,13 +56,22 @@ Output exactly the correct choice and nothing else.
 """).strip()
 
 
-CAPTION_PROMPT_E2E = dedent("""
-You are an audio describer. Concisely capture the key events that would help a QA system answer questions.
+CAPTION_PROMPT = dedent("""
+You are an audio describer. Concisely capture all important events in this audio that would help a QA system answer questions.
+If present, describe:
+- Speech (what's said, tone, speaker traits)
+- Music (type, mood)
+- Background sounds (environment, notable noises)
+Keep it brief but informative (1-3 sentences).
+""").strip()
 
-If present, mention:
-- Speech (what is said, tone, speaker traits)
-- Music (type/genre, mood)
-- Background/environmental sounds (e.g., traffic, wind, crowd, birds)
+CAPTION_PROMPT_MIXED = dedent("""
+You are an audio describer. Using both the raw audio and the symbolic features, 
+concisely describe all important events that would help a QA system answer questions.
 
-Keep it brief but informative (1–3 sentences). Avoid speculation.
+If present, describe:
+- Speech (what's said, tone, speaker traits)
+- Music (type, mood)
+- Background sounds (environment, notable noises)
+Keep it brief but informative (1–3 sentences).
 """).strip()
