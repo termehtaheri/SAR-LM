@@ -13,10 +13,10 @@ import logging
 from pathlib import Path
 from typing import List, Type
 
-from sar_lm.extractors.whisper import WhisperExtractor
+# from sar_lm.extractors.whisper import WhisperExtractor
 # from sar_lm.extractors.panns import PANNsExtractor
 # from sar_lm.extractors.musicnn import MusicnnExtractor
-# from sar_lm.extractors.chordino import ChordinoExtractor
+from sar_lm.extractors.chordino import ChordinoExtractor
 # from sar_lm.extractors.mt3 import MT3FeatureExtractor
 # from sar_lm.extractors.dawn_emotion import DawnEmotionExtractor
 
@@ -53,10 +53,10 @@ class ExtractPipeline:
 
         # Register all extractors here
         self.extractors: List[Type] = [
-            WhisperExtractor,
+            # WhisperExtractor,
             # PANNsExtractor,
             # MusicnnExtractor,
-            # ChordinoExtractor,
+            ChordinoExtractor,
             # DawnEmotionExtractor,
             # MT3FeatureExtractor  # optional (requires heavy dependencies)
         ]
