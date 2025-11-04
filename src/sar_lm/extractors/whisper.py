@@ -35,7 +35,15 @@ class WhisperExtractor(ExtractorBase):
             model_name (str): Whisper model size (e.g., 'tiny', 'base', 'small', 'medium', 'large').
             device (str | None): Target device ('cpu' or 'cuda'). Automatically selected if None.
         """
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        # Force CPU if specified, otherwise auto-select
+        if device == "cpu":
+            self.device = "cpu"
+        elif device == "cuda":
+            self.device = "cuda"
+        else:
+            self.device = "cuda" if torch.cuda.is_available() else "cpu"
+
+        print(f"[WhisperExtractor] Loading model '{model_name}' on device: {self.device}")
         self.model = whisper.load_model(model_name, device=self.device)
 
     @staticmethod

@@ -14,11 +14,11 @@ from pathlib import Path
 from typing import List, Type
 
 from sar_lm.extractors.whisper import WhisperExtractor
-from sar_lm.extractors.panns import PANNsExtractor
-from sar_lm.extractors.musicnn import MusicnnExtractor
-from sar_lm.extractors.chordino import ChordinoExtractor
+# from sar_lm.extractors.panns import PANNsExtractor
+# from sar_lm.extractors.musicnn import MusicnnExtractor
+# from sar_lm.extractors.chordino import ChordinoExtractor
 # from sar_lm.extractors.mt3 import MT3FeatureExtractor
-from sar_lm.extractors.dawn_emotion import DawnEmotionExtractor
+# from sar_lm.extractors.dawn_emotion import DawnEmotionExtractor
 
 
 # ------------------------------------------------------------------ #
@@ -54,18 +54,20 @@ class ExtractPipeline:
         # Register all extractors here
         self.extractors: List[Type] = [
             WhisperExtractor,
-            PANNsExtractor,
-            MusicnnExtractor,
-            ChordinoExtractor,
-            DawnEmotionExtractor,
+            # PANNsExtractor,
+            # MusicnnExtractor,
+            # ChordinoExtractor,
+            # DawnEmotionExtractor,
             # MT3FeatureExtractor  # optional (requires heavy dependencies)
         ]
 
-    def run(self) -> None:
-        """Run all extractors sequentially and save their outputs."""
+    def run(self, device: str | None = None) -> None:
         log.info(f"🎧 Starting feature extraction on: {self.audio_dir}")
         for extractor_cls in self.extractors:
-            extractor = extractor_cls()
+            if extractor_cls.__name__ == "WhisperExtractor":
+                extractor = extractor_cls(model_name="large", device=device)
+            else:
+                extractor = extractor_cls()
             output_path = self.output_dir / f"{extractor.name}_features.json"
             log.info(f"→ Running {extractor.name} extractor...")
             result_path = extractor.process_dir(str(self.audio_dir), str(output_path))
@@ -82,10 +84,11 @@ def main() -> None:
     parser.add_argument("--audio_dir", required=True, help="Path to input audio directory.")
     parser.add_argument("--output_dir", default="outputs/features", help="Directory to save feature files.")
     parser.add_argument("--include_mt3", action="store_true", help="Include MT3 transcription (slow).")
+    parser.add_argument("--device", default=None, help="Force device (cpu or cuda).")
     args = parser.parse_args()
 
     pipeline = ExtractPipeline(Path(args.audio_dir), Path(args.output_dir))
-    pipeline.run()
+    pipeline.run(device=args.device)
 
 
 if __name__ == "__main__":
