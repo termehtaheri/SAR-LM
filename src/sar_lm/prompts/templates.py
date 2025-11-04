@@ -54,3 +54,15 @@ CRITICAL: Your entire response MUST ONLY be the exact, verbatim text of the corr
 Do not add any other words or explanations.
 Output exactly the correct choice and nothing else.
 """).strip()
+
+
+CAPTION_PROMPT_E2E = dedent("""
+You are an audio describer. Concisely capture the key events that would help a QA system answer questions.
+
+If present, mention:
+- Speech (what is said, tone, speaker traits)
+- Music (type/genre, mood)
+- Background/environmental sounds (e.g., traffic, wind, crowd, birds)
+
+Keep it brief but informative (1–3 sentences). Avoid speculation.
+""").strip()
