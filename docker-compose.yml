@@ -5,7 +5,7 @@ services:
     container_name: sar-lm-panns
     build:
       context: .
-      dockerfile: docker/extractors/Dockerfile.panns
+      dockerfile: docker/Dockerfile.panns
     image: sar-lm:panns
     command: >
       python -m sar_lm.pipelines.extract_pipeline
@@ -19,7 +19,7 @@ services:
     container_name: sar-lm-whisper
     build:
       context: .
-      dockerfile: docker/extractors/Dockerfile.whisper
+      dockerfile: docker/Dockerfile.whisper
     image: sar-lm:whisper
     command: >
       python -m sar_lm.pipelines.extract_pipeline
@@ -33,7 +33,7 @@ services:
     container_name: sar-lm-mt3
     build:
       context: .
-      dockerfile: docker/extractors/Dockerfile.mt3
+      dockerfile: docker/Dockerfile.mt3
     image: sar-lm:mt3
     command: >
       python -m sar_lm.pipelines.extract_pipeline
@@ -47,7 +47,7 @@ services:
     container_name: sar-lm-musicnn
     build:
       context: .
-      dockerfile: docker/extractors/Dockerfile.musicnn
+      dockerfile: docker/Dockerfile.musicnn
     image: sar-lm:musicnn
     command: >
       python -m sar_lm.pipelines.extract_pipeline
@@ -61,7 +61,7 @@ services:
     container_name: sar-lm-chordino
     build:
       context: .
-      dockerfile: docker/extractors/Dockerfile.chordino
+      dockerfile: docker/Dockerfile.chordino
     image: sar-lm:chordino
     command: >
       python -m sar_lm.pipelines.extract_pipeline
@@ -75,7 +75,7 @@ services:
     container_name: sar-lm-dawn
     build:
       context: .
-      dockerfile: docker/extractors/Dockerfile.dawn
+      dockerfile: docker/Dockerfile.dawn
     image: sar-lm:dawn
     command: >
       python -m sar_lm.pipelines.extract_pipeline
