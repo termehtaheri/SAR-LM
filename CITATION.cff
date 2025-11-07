@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the following paper."
+title: "SAR-LM: Symbolic Audio Reasoning with Large Language Models"
+authors:
+  - family-names: "Taheri"
+    given-names: "Termeh"
+    affiliation: "Queen Mary University of London"
+  - family-names: "Ma"
+    given-names: "Yinghao"
+    affiliation: "Queen Mary University of London"
+  - family-names: "Benetos"
+    given-names: "Emmanouil"
+    affiliation: "Queen Mary University of London"
+date-released: "2025-08-01"
+version: "1.0.0"
+doi: "10.48550/arXiv.TBD"  # replace with actual arXiv DOI once uploaded
+license: "MIT"
+url: "https://github.com/termehtaheri/SAR-LM"
+abstract: >
+  Large language models (LLMs) have advanced in text and vision, but their reasoning
+  on audio remains limited. SAR-LM introduces a symbolic audio reasoning pipeline that
+  converts audio into structured, human-readable features across speech, sound events,
+  and music. These symbolic inputs support both reasoning and transparent error analysis,
+  enabling clear tracing of model failures. Across three benchmarks—MMAU, MMAR, and
+  OmniBench—SAR-LM achieves competitive accuracy while prioritizing interpretability.
