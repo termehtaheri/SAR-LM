@@ -120,10 +120,15 @@ class SymbolicCaptioner:
                 tags = [f"{t['tag']} ({t['score']:.2f})" for t in musicnn]
                 lines.append("Musicnn tags: " + ", ".join(tags))
             if chordino:
-                chords = [
-                    f"- {c.get('chord')} from {c.get('start', 0):.2f}s to {c.get('end', 0):.2f}s"
-                    for c in chordino
-                ]
+                chords = []
+                for c in chordino:
+                    chord = c.get("event") or c.get("chord") or "Unknown"
+                    start = c.get("start")
+                    end = c.get("end")
+                    if start is not None and end is not None:
+                        chords.append(f"- {chord} from {start:.2f}s to {end:.2f}s")
+                    else:
+                        chords.append(f"- {chord} (no timing info)")
                 lines.append("Chord progression:\n  " + "\n  ".join(chords))
             music_features = "\n".join(lines)
         else:
