@@ -1,0 +1,17 @@
+FROM python:3.10-slim
+
+RUN apt-get update && apt-get install -y git ffmpeg && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# copy requirements for this extractor
+COPY requirements/panns.txt ./requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src ./src
+COPY examples ./examples
+ENV PYTHONPATH=src
+
+# Default run command
+CMD ["python", "-m", "sar_lm.pipelines.extract_pipeline", "--device", "cpu"]

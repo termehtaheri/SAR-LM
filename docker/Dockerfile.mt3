@@ -1,0 +1,17 @@
+FROM continuumio/miniconda3:latest
+
+RUN apt-get update && apt-get install -y git ffmpeg && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# copy and create env
+COPY requirements/mt3_env.yml ./mt3_env.yml
+RUN conda env create -f mt3_env.yml
+
+SHELL ["conda", "run", "-n", "mt3_env", "/bin/bash", "-c"]
+
+COPY src ./src
+COPY examples ./examples
+ENV PYTHONPATH=src
+
+CMD ["python", "-m", "sar_lm.pipelines.extract_pipeline", "--device", "cpu"]

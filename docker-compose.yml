@@ -1,0 +1,103 @@
+version: "3.9"
+
+services:
+  panns:
+    container_name: sar-lm-panns
+    build:
+      context: .
+      dockerfile: docker/extractors/Dockerfile.panns
+    image: sar-lm:panns
+    command: >
+      python -m sar_lm.pipelines.extract_pipeline
+      --audio_dir examples
+      --output_dir outputs/features_panns
+      --device cpu
+    volumes:
+      - .:/app
+
+  whisper:
+    container_name: sar-lm-whisper
+    build:
+      context: .
+      dockerfile: docker/extractors/Dockerfile.whisper
+    image: sar-lm:whisper
+    command: >
+      python -m sar_lm.pipelines.extract_pipeline
+      --audio_dir examples
+      --output_dir outputs/features_whisper
+      --device cpu
+    volumes:
+      - .:/app
+
+  mt3:
+    container_name: sar-lm-mt3
+    build:
+      context: .
+      dockerfile: docker/extractors/Dockerfile.mt3
+    image: sar-lm:mt3
+    command: >
+      python -m sar_lm.pipelines.extract_pipeline
+      --audio_dir examples
+      --output_dir outputs/features_mt3
+      --device cpu
+    volumes:
+      - .:/app
+
+  musicnn:
+    container_name: sar-lm-musicnn
+    build:
+      context: .
+      dockerfile: docker/extractors/Dockerfile.musicnn
+    image: sar-lm:musicnn
+    command: >
+      python -m sar_lm.pipelines.extract_pipeline
+      --audio_dir examples
+      --output_dir outputs/features_musicnn
+      --device cpu
+    volumes:
+      - .:/app
+
+  chordino:
+    container_name: sar-lm-chordino
+    build:
+      context: .
+      dockerfile: docker/extractors/Dockerfile.chordino
+    image: sar-lm:chordino
+    command: >
+      python -m sar_lm.pipelines.extract_pipeline
+      --audio_dir examples
+      --output_dir outputs/features_chordino
+      --device cpu
+    volumes:
+      - .:/app
+
+  dawn:
+    container_name: sar-lm-dawn
+    build:
+      context: .
+      dockerfile: docker/extractors/Dockerfile.dawn
+    image: sar-lm:dawn
+    command: >
+      python -m sar_lm.pipelines.extract_pipeline
+      --audio_dir examples
+      --output_dir outputs/features_dawn
+      --device cpu
+    volumes:
+      - .:/app
+
+  reasoning:
+    container_name: sar-lm-reasoning
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.reasoning_captioning
+    image: sar-lm:reasoning
+    command: >
+      python -m sar_lm.pipelines.reasoning_pipeline
+      --reasoner qwen3
+      --features outputs/features_merged/features_merged.json
+      --qa examples/sample_qa.json
+      --output outputs/reasoning/qwen3_results.json
+    volumes:
+      - .:/app
+    env_file:
+      - .env

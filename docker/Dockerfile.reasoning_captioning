@@ -1,0 +1,21 @@
+FROM python:3.10-slim
+
+# System deps
+RUN apt-get update && apt-get install -y git ffmpeg && rm -rf /var/lib/apt/lists/*
+
+# Workdir
+WORKDIR /app
+
+# Copy code and requirements
+COPY requirements/reasoning_captioning.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src ./src
+COPY examples ./examples
+COPY outputs ./outputs
+COPY .env .env
+
+ENV PYTHONPATH=src
+
+# Default command (change as needed)
+CMD ["bash"]
