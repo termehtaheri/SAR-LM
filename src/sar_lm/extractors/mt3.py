@@ -59,6 +59,17 @@ class MT3Transcriber:
 
     def _configure_model(self, model_type: str, gin_dir: str):
         """Configure spectrograms, vocabularies, and gin bindings."""
+        required_files = [
+            os.path.join(gin_dir, "model.gin"),
+            os.path.join(gin_dir, f"{model_type}.gin"),
+        ]
+        for f in required_files:
+            if not os.path.exists(f):
+                raise FileNotFoundError(
+                    f"Missing required gin config file: {f}\n"
+                    "Please download the official MT3 gin configs "
+                    "and place them under configs/mt3/."
+                )
         if model_type == "ismir2021":
             num_velocity_bins = 127
             self.encoding_spec = note_sequences.NoteEncodingSpec

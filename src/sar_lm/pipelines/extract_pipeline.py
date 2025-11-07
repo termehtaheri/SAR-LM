@@ -16,8 +16,8 @@ from typing import List, Type
 # from sar_lm.extractors.whisper import WhisperExtractor
 # from sar_lm.extractors.panns import PANNsExtractor
 # from sar_lm.extractors.musicnn import MusicnnExtractor
-from sar_lm.extractors.chordino import ChordinoExtractor
-# from sar_lm.extractors.mt3 import MT3FeatureExtractor
+# from sar_lm.extractors.chordino import ChordinoExtractor
+from sar_lm.extractors.mt3 import MT3FeatureExtractor
 # from sar_lm.extractors.dawn_emotion import DawnEmotionExtractor
 
 
@@ -56,9 +56,9 @@ class ExtractPipeline:
             # WhisperExtractor,
             # PANNsExtractor,
             # MusicnnExtractor,
-            ChordinoExtractor,
+            # ChordinoExtractor,
             # DawnEmotionExtractor,
-            # MT3FeatureExtractor  # optional (requires heavy dependencies)
+            MT3FeatureExtractor  
         ]
 
     def run(self, device: str | None = None) -> None:
@@ -66,6 +66,12 @@ class ExtractPipeline:
         for extractor_cls in self.extractors:
             if extractor_cls.__name__ == "WhisperExtractor":
                 extractor = extractor_cls(model_name="large", device=device)
+            elif extractor_cls.__name__ == "MT3FeatureExtractor":
+                extractor = extractor_cls(
+                    checkpoint_dir="checkpoints/mt3/",
+                    gin_dir="configs/mt3/",
+                    model_type="mt3",
+                )
             else:
                 extractor = extractor_cls()
             output_path = self.output_dir / f"{extractor.name}_features.json"
