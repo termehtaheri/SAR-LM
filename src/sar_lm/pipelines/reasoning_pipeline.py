@@ -9,23 +9,27 @@ then dispatches reasoning tasks to the selected backend.
 Example:
     PYTHONPATH=src python -m sar_lm.pipelines.reasoning_pipeline \
         --reasoner qwen3 \
-        --features outputs/features_merged.json \
+        --features outputs/features_merged/features_merged.json \
         --qa examples/sample_qa.json \
-        --output outputs/qwen3_results.json
+        --output outputs/reasoning/qwen3_results.json
 """
-
 
 from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+
 from sar_lm.reasoners.gemini import GeminiReasoner
 from sar_lm.reasoners.qwen3 import Qwen3Reasoner
 from sar_lm.reasoners.qwen_omni import QwenOmniReasoner
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 class ReasoningPipeline:
     """Runs a selected reasoner on symbolic features and QA data."""
+
     def __init__(self, reasoner: str, features_path: Path, qa_path: Path, output_path: Path):
         self.reasoner = reasoner.lower()
         self.features_path = features_path
@@ -33,11 +37,14 @@ class ReasoningPipeline:
         self.output_path = output_path
 
     def run(self) -> None:
+        """Run the selected reasoning backend and save augmented results."""
         with open(self.qa_path, "r", encoding="utf-8") as f:
             mmau_items = json.load(f)
 
         with open(self.features_path, "r", encoding="utf-8") as f:
             merged_features = json.load(f)
+
+        self.output_path.parent.mkdir(parents=True, exist_ok=True)
 
         if self.reasoner == "gemini":
             model = GeminiReasoner()
@@ -75,7 +82,7 @@ def main():
     parser.add_argument("--reasoner", required=True, choices=["gemini", "qwen3", "qwen_omni"], help="Select reasoning backend")
     parser.add_argument("--features", required=True, help="Path to merged symbolic features JSON")
     parser.add_argument("--qa", required=True, help="Path to QA JSON file")
-    parser.add_argument("--output", default="outputs/reasoning_results.json", help="Output JSON path")
+    parser.add_argument("--output", default="outputs/reasoning/reasoning_results.json", help="Output JSON path")
     args = parser.parse_args()
 
     pipeline = ReasoningPipeline(
