@@ -1,115 +1,130 @@
-# 🎧 SAR-LM: Symbolic Audio Reasoning with Large Language Models
+<p align="center">
+  <img src="./static/images/pipeline.png" width="260" alt="SAR-LM Pipeline Overview" style="border-radius: 12px;">
+</p>
 
-**Authors:** Termeh Taheri, Yinghao Ma, and Emmanouil Benetos  
-**Affiliation:** Centre for Digital Music (C4DM), Queen Mary University of London  
-**Paper:** _SAR-LM: Symbolic Audio Reasoning with Large Language Models_ (to appear on arXiv, 2025)
-
----
-
-## Overview
-
-**SAR-LM** is a modular framework for **symbolic audio reasoning** — combining feature extraction, captioning, and reasoning within a single, transparent pipeline.
-
-Instead of treating audio as raw waveforms only, SAR-LM converts it into **symbolic representations** (speech transcripts, event tags, note sequences, chord progressions, etc.) and feeds them into large language models such as **Gemini**, **Qwen-3**, and **Qwen-Omni** for reasoning over sound.
-
-This design enables interpretability, reproducibility, and controlled evaluation on reasoning benchmarks such as **MMAU**, **MMAR**, and **OmniBench**.
-
----
-
-## ✨ Key Features
-
-- 🔊 **Unified Extractors** – PANNs, Whisper, MT3, Musicnn, Chordino, and DAWN emotion features.  
-- 🧠 **Multi-Backend Reasoning** – Gemini 2.5 Pro, Qwen-3, and Qwen-Omni backends for symbolic QA.  
-- 🗣️ **Captioning Pipelines** – Symbolic, Mixed, and End-to-End audio caption generation.  
-- 🧩 **Fully Modular Design** – Each extractor and reasoner is containerized and can run independently.  
-- 📊 **Reproducible Outputs** – JSON-based I/O for easy integration with benchmarks and analysis tools.
+<h1 align="center">SAR-LM: Symbolic Audio Reasoning with Large Language Models</h1>
+<p align="center">
+  <a href="https://termehtaheri.github.io/SAR-LM/">
+    <img src="https://img.shields.io/badge/🌐%20Homepage-SAR--LM-blue.svg" alt="Homepage">
+  </a>
+  <a href="https://arxiv.org/abs/TBD">
+    <img src="https://img.shields.io/badge/Paper-ArXiv-red.svg" alt="Arxiv Paper">
+  </a>
+  <a href="https://huggingface.co/datasets/TermehTaheri/SAR-LM">
+    <img src="https://img.shields.io/badge/🤗%20HuggingFace-Dataset-yellow.svg" alt="HuggingFace Dataset">
+  </a>
+</p>
 
 ---
 
-## 🧱 Repository Structure
+## ✨ Overview
 
-```
-SAR-LM/
-│
-├── src/sar_lm/
-│   ├── extractors/         # Individual feature extractors (PANNs, Whisper, etc.)
-│   ├── captions/           # Symbolic, mixed, and end-to-end captioners
-│   ├── reasoners/          # Gemini, Qwen3, Qwen-Omni reasoning backends
-│   ├── prompts/            # All prompt templates (centralized)
-│   └── pipelines/          # Orchestrators for extraction, merging, captioning, reasoning
-│
-├── examples/               # Sample audios and QA examples
-├── outputs/                # Example outputs (features, captions, reasoning results)
-├── docker/                 # Dockerfiles for all modules
-├── requirements/           # Environment-specific dependencies
-├── Makefile                # Workflow shortcuts
-├── CITATION.cff            # Citation metadata
-├── pyproject.toml          # Package and dependency configuration
-└── README.md
-```
+Large language models (LLMs) have made major progress in **text** and **vision**, yet their ability to **reason about sound** remains underdeveloped.  
+Most systems rely on dense embeddings (e.g., CLAP, BEATs), which are powerful but opaque — they offer little interpretability and struggle with structured reasoning.
+
+🎧 **SAR-LM** introduces a **symbolic audio reasoning pipeline** that converts audio into **human-readable, interpretable text features** — including transcripts, sound events, emotions, chords, and tags — before reasoning with large language models such as **Gemini-2.5-Pro** and **Qwen-3**.
+
+- Modular design with interpretable symbolic inputs  
+- Compatible with reasoning and captioning benchmarks (MMAU, MMAR, OmniBench)  
+- Enables detailed error tracing across speech, sound, and music domains  
+- Demonstrates competitive results with strong interpretability gains  
+
+<p align="center">
+  <img src="./static/images/pipeline.png" width="85%" alt="SAR-LM pipeline">
+  <br>
+  <em>Figure 1. SAR-LM pipeline — audio is converted into symbolic features (speech, sound, and music) before LLM reasoning.</em>
+</p>
+
+---
+
+## 🧩 Pipeline Overview
+
+SAR-LM follows four key stages:
+
+1. **Symbolic Feature Extraction**  
+   - Extract speech, sound, and music features using pretrained and signal-processing models (Whisper, PANNs, MT3, Chordino, Musicnn, DAWN).  
+   - Each feature is aligned to the audio timeline and represented as text.
+
+2. **Prompt Construction**  
+   - Combine symbolic features and benchmark questions into structured natural language prompts.  
+   - Supports both *flat* and *caption-based* prompting styles.
+
+3. **Caption Generation**  
+   - Summarize symbolic features into natural language paragraphs for concise reasoning input.
+
+4. **Reasoning with LLMs**  
+   - Use open-source or API-based LLMs (Gemini-2.5-Pro, Qwen-3-Instruct, Qwen-Omni) to answer benchmark questions.  
+   - Designed for interpretability and transparency in failure analysis.
+
+---
+
+## 🧮 Results Summary
+
+| Reasoner         | MMAU (%) | MMAR (%) | OmniBench (%) |
+|------------------|-----------|-----------|----------------|
+| Qwen2.5-Omni     | 64.6 | 48.5 | 30.7 |
+| Qwen3-Instruct   | 67.2 | 54.9 | 35.8 |
+| **Gemini-2.5-Pro** | **73.5** | **69.3** | **38.7** |
+
+<p align="center">
+  <em>Table 1. Overall reasoning accuracy (%) using symbolic features across benchmarks.</em>
+</p>
+
+---
+
+### Task-Wise Accuracy on MMAU (Qwen-3-Instruct)
+
+| Input Type | Sound | Music | Speech | Overall |
+|-------------|--------|--------|---------|----------|
+| Symbolic Features | 69.37 | 56.59 | **73.87** | 66.6 |
+| Symbolic Features (agent) | **72.67** | 57.78 | **73.87** | **68.1** |
+| Symbolic Captions | 69.67 | 58.38 | 71.77 | 66.6 |
+| End-to-End Captions | 68.17 | **62.28** | 69.97 | 66.8 |
+
+<p align="center">
+  <em>Table 2. Task-wise reasoning accuracy (%) on the MMAU benchmark.</em>
+</p>
 
 ---
 
 ## ⚙️ Installation
 
-### Option 1: Local (Recommended for testing)
+Clone the repository:
+
 ```bash
 git clone https://github.com/termehtaheri/SAR-LM.git
 cd SAR-LM
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements/base.txt
 ```
 
-### Option 2: Docker
-Each extractor and reasoning module has its own `Dockerfile` under `docker/`.  
-You can build them individually:
+### Option 1: Using Virtual Environments (Recommended)
+
 ```bash
-docker-compose build panns
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements/reasoning.txt
+```
+
+### Option 2: Using Docker
+
+Each module (extractors, captioning, reasoning) has its own Dockerfile.  
+You can build all at once:
+
+```bash
+docker-compose build
+```
+
+Or build a single module:
+
+```bash
 docker-compose build whisper
 ```
 
-or run all at once:
-```bash
-docker-compose up -d
-```
-(All services will start in idle mode and can be triggered independently.)
-
 ---
 
-## 🚀 Usage
+## 🚀 Quick Start
 
-### 1. Extract features
-```bash
-PYTHONPATH=src python -m sar_lm.pipelines.extract_pipeline \
-  --audio_dir examples \
-  --output_dir outputs/features_panns \
-  --device cpu
-```
+### 🧠 Run Reasoning Pipeline
 
-### 2. Merge features
-```bash
-PYTHONPATH=src python -m sar_lm.pipelines.merge_features \
-  --panns outputs/features_panns/panns_features.json \
-  --whisper outputs/features_whisper/whisper_features.json \
-  --mt3 outputs/features_mt3/mt3_features.json \
-  --emotion outputs/features_dawn/dawn_emotion_features.json \
-  --musicnn outputs/features_musicnn/musicnn_features.json \
-  --chordino outputs/features_chordino/chordino_features.json \
-  --output outputs/features_merged/features_merged.json
-```
-
-### 3. Generate captions
-Symbolic captioning:
-```bash
-PYTHONPATH=src python -m sar_lm.pipelines.captioning_pipeline \
-  --mode symbolic \
-  --audio_dir examples \
-  --features outputs/features_merged/features_merged.json \
-  --output outputs/captions/symbolic_captions.json
-```
-
-### 4. Run reasoning
 ```bash
 PYTHONPATH=src python -m sar_lm.pipelines.reasoning_pipeline \
   --reasoner qwen3 \
@@ -118,57 +133,90 @@ PYTHONPATH=src python -m sar_lm.pipelines.reasoning_pipeline \
   --output outputs/reasoning/qwen3_results.json
 ```
 
----
+### 📝 Generate Symbolic Captions
 
-## 🔐 API Keys
-
-If you use **Gemini** models for captioning or reasoning, set your API key in a `.env` file:
-
-```
-GEMINI_API_KEY=your_api_key_here
-```
-
----
-
-## 🧩 Reproducibility
-
-All environments are defined in:
-- `requirements/*.txt` – for lightweight installs  
-- `docker/extractors/` – containerized extractors  
-- `requirements/mt3_env.yml` – specialized MT3 setup  
-
-To build everything cleanly:
 ```bash
-make env
+PYTHONPATH=src python -m sar_lm.pipelines.captioning_pipeline \
+  --mode symbolic \
+  --audio_dir examples \
+  --features outputs/features_merged/features_merged.json \
+  --output outputs/captions/symbolic_captions.json
+```
+
+### 🧩 Merge Features
+
+```bash
+PYTHONPATH=src python -m sar_lm.utils.merge_features \
+  --input_dir outputs/features_* \
+  --output outputs/features_merged/features_merged.json
 ```
 
 ---
 
-## 📚 Citation
+## 🧠 Benchmarks Used
 
-If you use SAR-LM in your work, please cite:
+SAR-LM evaluates reasoning on three major benchmarks:
+
+| Benchmark | Domain | Description |
+|------------|---------|-------------|
+| **MMAU** | Speech, Sound, Music | Multi-task audio understanding and reasoning benchmark. |
+| **MMAR** | Multimodal | Chain-of-thought annotated audio QA dataset. |
+| **OmniBench** | Tri-Modal | Audio–visual–text reasoning benchmark. |
+
+---
+
+## 🔬 Interpretability and Error Analysis
+
+SAR-LM emphasizes **explainability** over raw accuracy.  
+Each symbolic layer (speech, emotion, chords, sound events) is human-readable — enabling fine-grained failure tracing.  
+Example failure: missed short-duration sound events (e.g., *light switch clicks*) leading to incorrect temporal ordering, easily identified in the symbolic trace.
+
+---
+
+## 📦 Repository Structure
 
 ```
+SAR-LM/
+├── src/sar_lm/
+│   ├── extractors/        # PANNs, Whisper, MT3, Musicnn, etc.
+│   ├── captions/          # Symbolic, Mixed, and End-to-End captioners
+│   ├── reasoners/         # Gemini, Qwen3, and Qwen-Omni backends
+│   ├── pipelines/         # High-level pipelines (extract, caption, reason)
+│   └── utils/             # Merging and formatting utilities
+├── examples/              # Sample audios and QA
+├── outputs/               # Generated features and results
+├── docker/                # Dockerfiles for each module
+├── requirements/          # Separate env files for extractors and reasoning
+└── CITATION.cff
+```
+
+---
+
+## 🪶 Citation
+
+If you find **SAR-LM** useful for your research, please cite:
+
+```bibtex
 @article{taheri2025sarlm,
   title={SAR-LM: Symbolic Audio Reasoning with Large Language Models},
   author={Taheri, Termeh and Ma, Yinghao and Benetos, Emmanouil},
-  journal={arXiv preprint arXiv:TBD},
-  year={2025}
+  journal={Proc. IEEE ICASSP},
+  year={2026},
+  url={https://arxiv.org/abs/TBD}
 }
 ```
 
 ---
 
-## 🧠 Acknowledgements
+## 🌟 Acknowledgements
 
-This project was developed at the **Centre for Digital Music (C4DM)**,  
-**Queen Mary University of London**, as part of Termeh Taheri’s MSc research project supervised by Prof. Emmanouil Benetos.  
-
-Special thanks to Yinghao Ma for guidance on benchmarking and integration.
+Yinghao Ma is supported by the UKRI Centre for Doctoral Training in Artificial Intelligence and Music (EP/S022694/1).  
+We thank the C4DM group at Queen Mary University of London for guidance and discussions.
 
 ---
 
-## 🪪 License
-
-This repository is released under the **MIT License**.  
-See [LICENSE](LICENSE) for details.
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT">
+  <br>
+  <em>© 2025 Termeh Taheri, Yinghao Ma, Emmanouil Benetos</em>
+</p>
