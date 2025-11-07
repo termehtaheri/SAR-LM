@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./static/images/pipeline.png" width="260" alt="SAR-LM Pipeline Overview" style="border-radius: 12px;">
+  <img src="./static/images/pipeline.gif" width="85%" alt="SAR-LM Pipeline Overview" style="border-radius: 12px;">
 </p>
 
 <h1 align="center">SAR-LM: Symbolic Audio Reasoning with Large Language Models</h1>
@@ -205,13 +205,6 @@ If you find **SAR-LM** useful for your research, please cite:
   url={https://arxiv.org/abs/TBD}
 }
 ```
-
----
-
-## 🌟 Acknowledgements
-
-Yinghao Ma is supported by the UKRI Centre for Doctoral Training in Artificial Intelligence and Music (EP/S022694/1).  
-We thank the C4DM group at Queen Mary University of London for guidance and discussions.
 
 ---
 
