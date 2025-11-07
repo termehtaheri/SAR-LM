@@ -19,7 +19,6 @@ venv*/
 
 # Outputs
 outputs/
-*.json
 
 # Cache
 .cache/

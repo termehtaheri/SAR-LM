@@ -1,0 +1,28 @@
+[
+  {
+    "id": "sample1",
+    "audio_id": "./examples/sample1.wav",
+    "question": "What is the main sound event present in the audio?",
+    "choices": ["Speech", "Music", "Vehicle", "Silence"],
+    "answer": "Speech",
+    "dataset": "CustomTest",
+    "task": "sound",
+    "split": "test",
+    "category": "Reasoning",
+    "sub-category": "Sound Event Recognition",
+    "difficulty": "easy"
+  },
+  {
+    "id": "sample2",
+    "audio_id": "./examples/sample2.wav",
+    "question": "What is the dominant source of sound in this audio?",
+    "choices": ["Speech", "Music", "Vehicle", "Nature"],
+    "answer": "Vehicle",
+    "dataset": "CustomTest",
+    "task": "sound",
+    "split": "test",
+    "category": "Reasoning",
+    "sub-category": "Acoustic Source Inference",
+    "difficulty": "medium"
+  }
+]
