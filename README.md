@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/termehtaheri/SAR-LM">
-    <img src="https://img.shields.io/badge/GitHub-Repository-black.svg" alt="GitHub Repo">
+    <img src="https://img.shields.io/badge/GitHub-black.svg" alt="GitHub Repo">
   </a>
   <a href="https://arxiv.org/abs/TBD">
     <img src="https://img.shields.io/badge/Paper-red.svg" alt="Paper">
