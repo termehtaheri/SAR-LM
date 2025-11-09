@@ -161,4 +161,4 @@ If you find **SAR-LM** useful for your research, please cite:
 ## 📜 License
 
 This project is released under the **MIT License**.  
-© 2025 Queen Mary University of London, developed as part of the MSc AI thesis project under the supervision of Prof. Emmanouil Benetos.
+© 2025 Termeh Taheri.
