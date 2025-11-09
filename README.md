@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/GitHub-Repository-black.svg" alt="GitHub Repo">
   </a>
   <a href="https://arxiv.org/abs/TBD">
-    <img src="https://img.shields.io/badge/Paper-Under%20Review%20(ICASSP%202026)-red.svg" alt="Paper">
+    <img src="https://img.shields.io/badge/Paper-red.svg" alt="Paper">
   </a>
 </p>
 
