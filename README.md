@@ -17,35 +17,31 @@
 
 ## 🎧 Overview
 
-**SAR-LM (Symbolic Audio Reasoning with Large Language Models)** is a modular framework designed to enable **interpretable reasoning over audio**.  
-Instead of relying on dense, opaque embeddings, SAR-LM converts audio into **symbolic, human-readable representations** — including speech, sound events, and music — that can be reasoned over by large language models (LLMs).
+**SAR-LM (Symbolic Audio Reasoning with Large Language Models)** is a modular framework designed to enable interpretable reasoning over audio.  
+Instead of relying on dense, opaque embeddings, SAR-LM converts audio into symbolic, human-readable representations including speech, sound events, and music, that can be reasoned over by large language models (LLMs).
 
-This project accompanies the ICASSP 2026 paper  
-> *“SAR-LM: Symbolic Audio Reasoning with Large Language Models”*  
-> *Termeh Taheri, Yinghao Ma, Emmanouil Benetos*  
-> *Queen Mary University of London*
 
-SAR-LM achieves **competitive accuracy across three major audio reasoning benchmarks** (MMAU, MMAR, OmniBench) while maintaining **transparent interpretability** — allowing clear traceability of model failures to specific features.
+SAR-LM achieves competitive accuracy across three major audio reasoning benchmarks (MMAU, MMAR) while maintaining transparent interpretability, allowing clear traceability of model failures to specific features.
 
 ---
 
 ## 🧩 Method and Novelty
 
-SAR-LM introduces a **symbolic audio reasoning pipeline**, built around four modular stages:
+SAR-LM introduces a symbolic audio reasoning pipeline, built around four modular stages:
 
 1. **Symbolic Feature Extraction** – Uses pretrained and signal-processing models to extract transcripts (Whisper), sound events (PANNs), emotions (DAWN), chords (Chordino), musical notes (MT3), and tags (Musicnn).  
 2. **Prompt Construction** – Converts symbolic features into structured natural language prompts that pair with benchmark questions.  
 3. **Caption Generation** – Summarizes symbolic features into concise natural-language captions for easier reasoning.  
 4. **Reasoning with LLMs** – Performs multi-choice reasoning using open- or closed-source LLMs (e.g., Qwen3, Gemini 2.5 Pro).
 
-Unlike dense audio embeddings (e.g., CLAP, BEATs), SAR-LM’s symbolic inputs are **explicit and interpretable**, enabling detailed **error analysis** and **content-aware reasoning**.  
-The pipeline supports **flat symbolic**, **symbolic caption**, and **end-to-end caption** reasoning modes.
+Unlike dense audio embeddings (e.g., CLAP, BEATs), SAR-LM’s symbolic inputs are explicit and interpretable, enabling detailed error analysis and content-aware reasoning.  
+The pipeline supports flat symbolic, symbolic caption, and end-to-end caption reasoning modes.
 
 ---
 
 ## 📊 Results on MMAU Benchmark
 
-SAR-LM outperforms all prior methods on the **MMAU benchmark**, demonstrating the effectiveness of symbolic reasoning:
+SAR-LM outperforms all prior methods on the MMAU benchmark, demonstrating the effectiveness of symbolic reasoning:
 
 | **Method** | **Sound** | **Music** | **Speech** | **Overall** |
 |-------------|------------|------------|-------------|--------------|
@@ -54,13 +50,13 @@ SAR-LM outperforms all prior methods on the **MMAU benchmark**, demonstrating th
 | Audio-Reasoner | 60.06 | 64.30 | 60.70 | 61.71 |
 | **SAR-LM (Gemini + Symbolic)** | **73.27** | **64.97** | **82.28** | **73.5** |
 
-SAR-LM achieves the **highest overall accuracy (73.5%)**, especially excelling in speech reasoning tasks.
+SAR-LM achieves the highest overall accuracy (73.5%), especially excelling in speech reasoning tasks.
 
 ---
 
 ## ⚙️ Installation and Setup
 
-### 🧠 Without Docker
+### Without Docker
 
 You can install and run each module directly using its requirement file:
 
@@ -136,13 +132,12 @@ SAR-LM/
 │   ├── prompts/               # Prompt templates
 │   └── reasoners/             # LLM reasoning backends (Gemini, Qwen)
 │
-├── static/images/pipeline.png # SAR-LM pipeline diagram
 ├── docker-compose.yml
 ├── LICENSE
 └── README.md
 ```
 
-SAR-LM’s modular design allows easy substitution of extractors, captioners, or reasoners — enabling flexible experimentation and transparent analysis.
+SAR-LM’s modular design allows easy substitution of extractors, captioners, or reasoners, enabling flexible experimentation and transparent analysis.
 
 ---
 
@@ -151,12 +146,13 @@ SAR-LM’s modular design allows easy substitution of extractors, captioners, or
 If you find **SAR-LM** useful for your research, please cite:
 
 ```bibtex
-@inproceedings{taheri2026sarlm,
+@inproceedings{taheri2025sarlm,
   title={SAR-LM: Symbolic Audio Reasoning with Large Language Models},
   author={Termeh Taheri and Yinghao Ma and Emmanouil Benetos},
-  booktitle={ICASSP},
-  year={2026},
-  organization={IEEE}
+  archivePrefix={arXiv},
+  year={2025},
+  primaryClass={cs.AI},
+  url={},
 }
 ```
 
@@ -165,4 +161,4 @@ If you find **SAR-LM** useful for your research, please cite:
 ## 📜 License
 
 This project is released under the **MIT License**.  
-© 2025 Queen Mary University of London — developed as part of the MSc AI thesis project under the supervision of Prof. Emmanouil Benetos.
+© 2025 Queen Mary University of London, developed as part of the MSc AI thesis project under the supervision of Prof. Emmanouil Benetos.
