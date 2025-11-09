@@ -1,8 +1,8 @@
+<h1 align="center">SAR-LM: Symbolic Audio Reasoning with Large Language Models</h1>
+
 <p align="center">
   <img src="./static/images/pipeline.gif" width="85%" alt="SAR-LM Pipeline Overview" style="border-radius: 12px;">
 </p>
-
-<h1 align="center">SAR-LM: Symbolic Audio Reasoning with Large Language Models</h1>
 
 <p align="center">
   <a href="https://github.com/termehtaheri/SAR-LM">
