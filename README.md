@@ -160,5 +160,5 @@ If you find **SAR-LM** useful for your research, please cite:
 
 ## 📜 License
 
-This project is released under the **MIT License**.  
+This project is released under the MIT License.  
 © 2025 Termeh Taheri.
