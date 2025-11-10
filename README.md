@@ -151,7 +151,7 @@ If you find **SAR-LM** useful for your research, please cite:
   author={Termeh Taheri and Yinghao Ma and Emmanouil Benetos},
   archivePrefix={arXiv},
   year={2025},
-  primaryClass={cs.AI},
+  primaryClass={cs.SD},
   url={},
 }
 ```
