@@ -1,16 +1,19 @@
-<h1 align="center">SAR-LM: Symbolic Audio Reasoning with Large Language Models</h1>
+<div align="center">
+
+# SAR-LM: Symbolic Audio Reasoning with Large Language Models  
+[**Termeh Taheri**](https://termehtaheri.github.io/)<sup>1</sup>,  
+[**Yinghao Ma**](https://nicolaus625.github.io/)<sup>1</sup>,  
+[**Emmanouil Benetos**](https://www.eecs.qmul.ac.uk/~emmanouilb/)<sup>1</sup>  
+<sup>1</sup> Queen Mary University of London  
+
+[![arXiv](https://img.shields.io/badge/arXiv-2511.06483-red.svg)](https://arxiv.org/abs/2511.06483)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/termehtaheri/SAR-LM)
+
+</div>
 
 <p align="center">
   <img src="./static/images/pipeline.gif" width="85%" alt="SAR-LM Pipeline Overview" style="border-radius: 12px;">
-</p>
-
-<p align="center">
-  <a href="https://github.com/termehtaheri/SAR-LM">
-    <img src="https://img.shields.io/badge/GitHub-black.svg" alt="GitHub Repo">
-  </a>
-  <a href="https://arxiv.org/abs/2511.06483">
-    <img src="https://img.shields.io/badge/arXiv-2511.06483-red.svg" alt="arXiv Paper">
-  </a>
 </p>
 
 ---
@@ -20,7 +23,7 @@
 **SAR-LM (Symbolic Audio Reasoning with Large Language Models)** is a modular framework designed to enable interpretable reasoning over audio.  
 Instead of relying on dense, opaque embeddings, SAR-LM converts audio into symbolic, human-readable representations, including speech, sound events, and music, that can be reasoned over by large language models (LLMs).
 
-SAR-LM achieves competitive accuracy across major audio reasoning benchmarks (MMAU, MMAR, OmniBench) while maintaining transparent interpretability, allowing clear traceability of model failures to specific features.
+SAR-LM achieves competitive accuracy across major audio reasoning benchmarks (MMAU, MMAR) while maintaining transparent interpretability, allowing clear traceability of model failures to specific features.
 
 ---
 
@@ -118,7 +121,7 @@ You can install and run each module directly using its requirement file:
 Each symbolic extractor, Whisper, PANNs, Musicnn, Chordino, MT3, and DAWN Emotion, has its own dependencies.  
 To ensure smooth setup, you can choose one of two approaches:
 
-#### Option 1: Separate Virtual Environments (advanced users)
+#### Option 1: Separate Virtual Environments
 Each extractor can be installed in its own virtual environment using the corresponding file in the `requirements/` directory:
 ```bash
 # Whisper environment
@@ -163,7 +166,7 @@ SAR-LM/
 └── README.md
 ```
 
-SAR-LM’s modular design allows easy substitution of extractors, captioners, or reasoners — enabling flexible experimentation and transparent analysis.
+SAR-LM’s modular design allows easy substitution of extractors, captioners, or reasoners, enabling flexible experimentation and transparent analysis.
 
 ---
 
