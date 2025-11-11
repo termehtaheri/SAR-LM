@@ -17,8 +17,8 @@
 
 ## 🎧 Overview
 
-**SAR-LM (Symbolic Audio Reasoning with Large Language Models)** is a modular framework designed to enable **interpretable reasoning over audio**.  
-Instead of relying on dense, opaque embeddings, SAR-LM converts audio into **symbolic, human-readable representations** — including speech, sound events, and music — that can be reasoned over by large language models (LLMs).
+**SAR-LM (Symbolic Audio Reasoning with Large Language Models)** is a modular framework designed to enable interpretable reasoning over audio.  
+Instead of relying on dense, opaque embeddings, SAR-LM converts audio into symbolic, human-readable representations, including speech, sound events, and music, that can be reasoned over by large language models (LLMs).
 
 SAR-LM achieves competitive accuracy across major audio reasoning benchmarks (MMAU, MMAR, OmniBench) while maintaining transparent interpretability, allowing clear traceability of model failures to specific features.
 
@@ -33,8 +33,8 @@ SAR-LM introduces a symbolic audio reasoning pipeline built around four modular 
 3. **Caption Generation** – Summarizes symbolic features into concise natural-language captions for easier reasoning.  
 4. **Reasoning with LLMs** – Performs multi-choice reasoning using open- or closed-source LLMs (e.g., Qwen3, Gemini 2.5 Pro).
 
-Unlike dense audio embeddings (e.g., CLAP, BEATs), SAR-LM’s symbolic inputs are **explicit and interpretable**, enabling detailed **error analysis** and **content-aware reasoning**.  
-The pipeline supports **flat symbolic**, **symbolic caption**, and **end-to-end caption** reasoning modes.
+Unlike dense audio embeddings (e.g., CLAP, BEATs), SAR-LM’s symbolic inputs are explicit and interpretable, enabling detailed error analysis and content-aware reasoning.  
+The pipeline supports flat symbolic, symbolic caption, and end-to-end caption reasoning modes.
 
 ---
 
@@ -93,7 +93,7 @@ You can install and run each module directly using its requirement file:
    ```
 
 5. **Generate captions (optional)**
-   SAR-LM supports three captioning modes — **symbolic**, **mixed**, and **end-to-end** — all powered by Gemini models.
+   SAR-LM supports three captioning modes, symbolic, mixed, and end-to-end, all powered by Gemini model.
 
    - **Symbolic:** Generates captions from pre-extracted symbolic features (Whisper, PANNs, MT3, etc.).  
    - **Mixed:** Combines symbolic features with raw audio for richer descriptions.  
@@ -110,12 +110,12 @@ You can install and run each module directly using its requirement file:
 
    The output JSON file will contain generated captions for each audio file.  
    Use symbolic or mixed modes for interpretability, and end-to-end mode for direct caption generation.
-   
+
 ---
 
 ### ⚠️ Note on Environments and Extractors
 
-Each symbolic extractor — **Whisper**, **PANNs**, **Musicnn**, **Chordino**, **MT3**, and **DAWN Emotion** — has its own dependencies.  
+Each symbolic extractor, Whisper, PANNs, Musicnn, Chordino, MT3, and DAWN Emotion, has its own dependencies.  
 To ensure smooth setup, you can choose one of two approaches:
 
 #### Option 1: Separate Virtual Environments (advanced users)
