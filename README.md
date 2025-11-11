@@ -8,8 +8,8 @@
   <a href="https://github.com/termehtaheri/SAR-LM">
     <img src="https://img.shields.io/badge/GitHub-black.svg" alt="GitHub Repo">
   </a>
-  <a href="https://arxiv.org/abs/TBD">
-    <img src="https://img.shields.io/badge/Paper-red.svg" alt="Paper">
+  <a href="https://arxiv.org/abs/2511.06483">
+    <img src="https://img.shields.io/badge/arXiv-2511.06483-red.svg" alt="arXiv Paper">
   </a>
 </p>
 
@@ -146,13 +146,13 @@ SAR-LM’s modular design allows easy substitution of extractors, captioners, or
 If you find **SAR-LM** useful for your research, please cite:
 
 ```bibtex
-@inproceedings{taheri2025sarlm,
+@article{taheri2025sarlm,
   title={SAR-LM: Symbolic Audio Reasoning with Large Language Models},
-  author={Termeh Taheri and Yinghao Ma and Emmanouil Benetos},
-  archivePrefix={arXiv},
+  author={Taheri, Termeh and Ma, Yinghao and Benetos, Emmanouil},
+  journal={arXiv preprint arXiv:2511.06483},
   year={2025},
   primaryClass={cs.SD},
-  url={},
+  url={https://arxiv.org/abs/2511.06483}
 }
 ```
 
