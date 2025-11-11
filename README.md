@@ -1,14 +1,14 @@
 <div align="center">
 
 # SAR-LM: Symbolic Audio Reasoning with Large Language Models  
-[**Termeh Taheri**](https://termehtaheri.github.io/)<sup>1</sup>,  
-[**Yinghao Ma**](https://nicolaus625.github.io/)<sup>1</sup>,  
+
+[**Termeh Taheri**](https://termehtaheri.github.io/)<sup>1</sup>, 
+[**Yinghao Ma**](https://nicolaus625.github.io/)<sup>1</sup>, 
 [**Emmanouil Benetos**](https://www.eecs.qmul.ac.uk/~emmanouilb/)<sup>1</sup>  
 <sup>1</sup> Queen Mary University of London  
 
 [![arXiv](https://img.shields.io/badge/arXiv-2511.06483-red.svg)](https://arxiv.org/abs/2511.06483)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/termehtaheri/SAR-LM)
 
 </div>
 
