@@ -17,31 +17,30 @@
 
 ## 🎧 Overview
 
-**SAR-LM (Symbolic Audio Reasoning with Large Language Models)** is a modular framework designed to enable interpretable reasoning over audio.  
-Instead of relying on dense, opaque embeddings, SAR-LM converts audio into symbolic, human-readable representations including speech, sound events, and music, that can be reasoned over by large language models (LLMs).
+**SAR-LM (Symbolic Audio Reasoning with Large Language Models)** is a modular framework designed to enable **interpretable reasoning over audio**.  
+Instead of relying on dense, opaque embeddings, SAR-LM converts audio into **symbolic, human-readable representations** — including speech, sound events, and music — that can be reasoned over by large language models (LLMs).
 
-
-SAR-LM achieves competitive accuracy across three major audio reasoning benchmarks (MMAU, MMAR) while maintaining transparent interpretability, allowing clear traceability of model failures to specific features.
+SAR-LM achieves competitive accuracy across major audio reasoning benchmarks (MMAU, MMAR, OmniBench) while maintaining transparent interpretability, allowing clear traceability of model failures to specific features.
 
 ---
 
 ## 🧩 Method and Novelty
 
-SAR-LM introduces a symbolic audio reasoning pipeline, built around four modular stages:
+SAR-LM introduces a symbolic audio reasoning pipeline built around four modular stages:
 
 1. **Symbolic Feature Extraction** – Uses pretrained and signal-processing models to extract transcripts (Whisper), sound events (PANNs), emotions (DAWN), chords (Chordino), musical notes (MT3), and tags (Musicnn).  
 2. **Prompt Construction** – Converts symbolic features into structured natural language prompts that pair with benchmark questions.  
 3. **Caption Generation** – Summarizes symbolic features into concise natural-language captions for easier reasoning.  
 4. **Reasoning with LLMs** – Performs multi-choice reasoning using open- or closed-source LLMs (e.g., Qwen3, Gemini 2.5 Pro).
 
-Unlike dense audio embeddings (e.g., CLAP, BEATs), SAR-LM’s symbolic inputs are explicit and interpretable, enabling detailed error analysis and content-aware reasoning.  
-The pipeline supports flat symbolic, symbolic caption, and end-to-end caption reasoning modes.
+Unlike dense audio embeddings (e.g., CLAP, BEATs), SAR-LM’s symbolic inputs are **explicit and interpretable**, enabling detailed **error analysis** and **content-aware reasoning**.  
+The pipeline supports **flat symbolic**, **symbolic caption**, and **end-to-end caption** reasoning modes.
 
 ---
 
 ## 📊 Results on MMAU Benchmark
 
-SAR-LM outperforms all prior methods on the MMAU benchmark, demonstrating the effectiveness of symbolic reasoning:
+SAR-LM outperforms prior methods on the MMAU benchmark, demonstrating the effectiveness of symbolic reasoning:
 
 | **Method** | **Sound** | **Music** | **Speech** | **Overall** |
 |-------------|------------|------------|-------------|--------------|
@@ -93,25 +92,52 @@ You can install and run each module directly using its requirement file:
        --output outputs/reasoning/qwen3_results.json
    ```
 
+5. **Generate captions (optional)**
+   SAR-LM supports three captioning modes — **symbolic**, **mixed**, and **end-to-end** — all powered by Gemini models.
+
+   - **Symbolic:** Generates captions from pre-extracted symbolic features (Whisper, PANNs, MT3, etc.).  
+   - **Mixed:** Combines symbolic features with raw audio for richer descriptions.  
+   - **End-to-End:** Generates captions directly from audio without symbolic inputs.
+
+   Example:
+   ```bash
+   PYTHONPATH=src python -m sar_lm.pipelines.captioning_pipeline \
+       --mode symbolic \
+       --audio_dir examples \
+       --features outputs/features_merged/features_merged.json \
+       --output outputs/captions/symbolic_captions.json
+   ```
+
+   The output JSON file will contain generated captions for each audio file.  
+   Use symbolic or mixed modes for interpretability, and end-to-end mode for direct caption generation.
+   
 ---
 
-### 🐳 With Docker
+### ⚠️ Note on Environments and Extractors
 
-SAR-LM provides individual Dockerfiles for each feature extractor and reasoning module, defined in the `docker/` folder.
+Each symbolic extractor — **Whisper**, **PANNs**, **Musicnn**, **Chordino**, **MT3**, and **DAWN Emotion** — has its own dependencies.  
+To ensure smooth setup, you can choose one of two approaches:
 
-#### Build all containers
+#### Option 1: Separate Virtual Environments (advanced users)
+Each extractor can be installed in its own virtual environment using the corresponding file in the `requirements/` directory:
+```bash
+# Whisper environment
+python -m venv venv_whisper
+source venv_whisper/bin/activate
+pip install -r requirements/whisper.txt
+```
+
+#### Option 2: Docker (recommended)
+Use the provided Docker setup for fully isolated environments:
 ```bash
 docker-compose build
+docker-compose up whisper     # or panns / mt3 / reasoning / and so on ...
 ```
 
-#### Run specific modules
-```bash
-docker-compose up panns       # run PANNs extractor
-docker-compose up whisper     # run Whisper extractor
-docker-compose up reasoning   # run reasoning pipeline
-```
+This approach automatically manages dependencies for each extractor and ensures full reproducibility.
 
-Each service will automatically process the example audios and save extracted features in `./outputs/features`.
+> 💡 **Tip:** When running locally (without Docker), enable only the extractors whose dependencies are installed in your current environment.  
+> The Docker setup automatically handles this separation for you.
 
 ---
 
@@ -137,7 +163,7 @@ SAR-LM/
 └── README.md
 ```
 
-SAR-LM’s modular design allows easy substitution of extractors, captioners, or reasoners, enabling flexible experimentation and transparent analysis.
+SAR-LM’s modular design allows easy substitution of extractors, captioners, or reasoners — enabling flexible experimentation and transparent analysis.
 
 ---
 
@@ -158,7 +184,16 @@ If you find **SAR-LM** useful for your research, please cite:
 
 ---
 
+## 📬 Contact
+
+For any questions, feedback, or collaboration inquiries, feel free to reach out at  
+📧 **termeh.taheri.dev@gmail.com**.  
+
+If you encounter any issues or bugs in the code, please open an issue.
+
+---
+
 ## 📜 License
 
-This project is released under the MIT License.  
+This project is released under the **MIT License**.  
 © 2025 Termeh Taheri.
