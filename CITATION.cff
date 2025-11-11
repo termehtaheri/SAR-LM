@@ -11,11 +11,12 @@ authors:
   - family-names: "Benetos"
     given-names: "Emmanouil"
     affiliation: "Queen Mary University of London"
-date-released: "2025-08-01"
+date-released: "2025-11-09"
 version: "1.0.0"
-doi: "10.48550/arXiv.TBD"  # replace with actual arXiv DOI once uploaded
+doi: "10.48550/arXiv.2511.06483"
 license: "MIT"
 url: "https://github.com/termehtaheri/SAR-LM"
+repository-code: "https://github.com/termehtaheri/SAR-LM"
 abstract: >
   Large language models (LLMs) have advanced in text and vision, but their reasoning
   on audio remains limited. SAR-LM introduces a symbolic audio reasoning pipeline that
