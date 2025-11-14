@@ -175,13 +175,14 @@ SAR-LM’s modular design allows easy substitution of extractors, captioners, or
 If you find **SAR-LM** useful for your research, please cite:
 
 ```bibtex
-@article{taheri2025sarlm,
-  title={SAR-LM: Symbolic Audio Reasoning with Large Language Models},
-  author={Taheri, Termeh and Ma, Yinghao and Benetos, Emmanouil},
-  journal={arXiv preprint arXiv:2511.06483},
-  year={2025},
-  primaryClass={cs.SD},
-  url={https://arxiv.org/abs/2511.06483}
+@misc{taheri2025sarlmsymbolicaudioreasoning,
+      title={SAR-LM: Symbolic Audio Reasoning with Large Language Models}, 
+      author={Termeh Taheri and Yinghao Ma and Emmanouil Benetos},
+      year={2025},
+      eprint={2511.06483},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2511.06483}, 
 }
 ```
 
